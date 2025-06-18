@@ -1,0 +1,272 @@
+body {
+  margin: 0;
+  font-family: monospace, sans-serif;
+  background: #111;
+  color: #f9f9f9;
+  transition: background 0.3s, color 0.3s;
+}
+
+.light-theme {
+  background: #f9f9f9;
+  color: #111;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  background: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  z-index: 999;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.wallet-button {
+  background: #00ff99;
+  border: 2px solid #000;
+  color: #000;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.container {
+  padding: 2rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.2rem;
+  opacity: 0.8;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: #222;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  max-width: 300px;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.light-theme .card {
+  background: #fff;
+  color: #111;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.whitepaper-button {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: red;
+  color: white;
+  border: 2px solid black;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.whitepaper-button:hover {
+  transform: scale(1.05);
+}
+
+.Join-text {
+  color: rgb(237, 15, 137); /* Text color */
+  font-family: 'Courier New', monospace; /* Font style */
+  font-style: italic; /* Optional for italic text */
+}
+
+.buy-form {
+  margin-top: 3rem;
+}
+
+.buy-form input {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  width: 200px;
+  border-radius: 5px;
+  border: none;
+}
+
+.buy-form button {
+  padding: 0.6rem 1.2rem;
+  background: #e60073;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.buy-form button:hover {
+  background: #ff3385;
+}
+
+.status {
+  margin-top: 1rem;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.progress-wrapper {
+  margin: 1.5rem auto;
+  max-width: 400px;
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: var(--progress-bg, #444);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid #fff;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background-color: var(--progress-fill, #e60073);
+  transition: width 1s ease-in-out;
+}
+
+.progress-stats {
+  margin-top: 0.5rem;
+  font-weight: bold;
+}
+
+footer {
+  margin-top: 3rem;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.socials {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.socials a {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+}
+
+.socials img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: grayscale(100%) brightness(0.9);
+}
+
+[data-theme="dark"] .socials img {
+  filter: grayscale(100%) brightness(1.2);
+}
+
+.socials a:hover img {
+  transform: scale(1.15);
+  filter: none;
+}
+
+.socials a {
+  color: var(--icon-color);
+  transition: color 0.3s ease;
+  width: 28px;
+  height: 28px;
+}
+
+.socials svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: currentColor;
+}
+
+:root {
+  --icon-color: #111; /* light theme icon color */
+}
+
+[data-theme="dark"] {
+  --icon-color: #fff; /* dark theme icon color */
+}
+
+#connect-wallet {
+  font-weight: bold;
+  color: white;
+  background: green;
+  border: 4px solid black;
+  padding: 1rem 2rem;
+  cursor: pointer;
+}
+
+#confirmationMessage {
+  font-weight: bold;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #222;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+.toast.hidden {
+  display: none;
+}

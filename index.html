@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fuck My Ex Coin ($FMEX)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <style>
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #222;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 9999;
+  }
+  .toast.show {
+    opacity: 1;
+  }
+</style>
+
+<div id="toast" class="toast"></div>
+<audio id="toast-sound" src="assets/beep1.mp3" preload="auto"></audio>
+
+    <header class="header">
+    <div class="logo">💔 FMEX</div>
+    <div class="header-controls">
+      <button id="theme-toggle">❤️</button>
+      <button id="wallet-button">Connect Wallet</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <header>
+      <h1>💔 Fuck My Ex Coin ($FMEX)</h1>
+      <p>The only coin born from heartbreak, caffeine, and dangerously poor decisions.</p>
+    </header>
+
+    <section class="cards">
+      <div class="card">
+        <div class="icon">💔</div>
+        <h2>What is $FMEX?</h2>
+        <p>$FMEX is your on-chain revenge. It’s not just a token — it’s therapy on the blockchain.</p>
+        <a class="whitepaper-button" href="https://drive.google.com/file/d/1ipVY_3A92YBCZR8kGmAQsWbvo6LHHlCu/view?usp=sharing" target="_blank" onclick="event.stopPropagation();">
+    Whitepaper↗ 
+  </a>
+      </div>
+      <div class="card">
+        <div class="icon">🚀</div>
+        <h2>Pettynomics™</h2>
+        <p>69% to the community, 15% therapy fund, 10% revenge marketing, 6% burned in ritual fire.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🔥</div>
+        <h2>Roadmap</h2>
+        <p>Q1: Got dumped. Q2: Launched. Q3: Emotional rugs. Q4: Moon or meltdown. Probably both.</p>
+      </div>
+    </section>
+
+    <section class="buy-form">
+      <h2 class="Join-text"> Join $FMEX Presale Now!!</h2>
+      <p>Price: <strong>1 SOL = 1,000,000 FMEX | Listing Price: $0.0017</strong></p>
+      <p id="countdown" style="font-weight: bold; font-size: 1.2rem;"></p>
+      <input type="number" id="solAmount" placeholder="Enter SOL amount (min 1)" min="0.1" step="0.1" />
+      <button class="buy-button" id="buyButton">Buy with SOL</button>
+      <p id="confirmationMessage" style="margin-top:1rem; color:green;"></p>
+      <p class="status" id="status">💡 Connect Phantom wallet to continue.</p>
+    </section>
+
+    <div class="progress-wrapper">
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+  <p class="progress-stats">Target: $50,000 | Raised: $22,980.01</p>
+ </div>
+
+    <footer>
+  <p>“Because sometimes the only way to heal… is to pump so hard your ex hears about it on Crypto Twitter.”</p>
+
+  <div class="socials">
+    <a href="https://t.me/yourchannel" target="_blank" aria-label="Telegram">
+      <img src="assets/telegram.svg" alt="Telegram icon" />
+    </a>
+    <a href="https://x.com/fuckmyexcoin" target="_blank" aria-label="X">
+      <img src="assets/x.svg" alt="X icon" />
+    </a>
+    <a href="https://instagram.com/yourhandle" target="_blank" aria-label="Instagram">
+      <img src="assets/instagram.svg" alt="Instagram icon" />
+    </a>
+  </div>
+</footer>
+
+  <script src="script.js"></script>
+  <script>
+  const connectBtn = document.getElementById("connect-wallet");
+  const walletAddress = document.getElementById("wallet-address");
+
+  async function connectPhantom() {
+    if (window.solana && window.solana.isPhantom) {
+      try {
+        const resp = await window.solana.connect();
+        walletAddress.textContent = `Connected: ${resp.publicKey.toString()}`;
+      } catch (err) {
+        console.error("Connection failed", err);
+      }
+    } else {
+      alert("Phantom Wallet not found. Install it from https://phantom.app");
+    }
+  }
+
+  connectBtn.addEventListener("click", connectPhantom);
+</script>
+
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+
+  <script>
+    // ⏳ Countdown Timer
+  window.addEventListener('DOMContentLoaded', () => {
+    const countdownEl = document.getElementById('countdown');
+    const presaleEnd = new Date();
+    presaleEnd.setDate(presaleEnd.getDate() + 6); // 3 days from now
+    presaleEnd.setHours(0, 0, 0, 0);
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = presaleEnd - now;
+
+      if (distance < 0) {
+        countdownEl.textContent = "🚨 Presale ended!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.textContent = `Presale ends in ${days}d ${hours}h ${mins}m ${secs}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  });
+</script>
+
+<script type="module">
+  import {
+    Connection,
+    clusterApiUrl,
+    PublicKey,
+    Transaction,
+    SystemProgram,
+  } from "https://esm.sh/@solana/web3.js";
+
+  const buyButton = document.getElementById("buyButton");
+  const solInput = document.getElementById("solAmount");
+  const confirmMsg = document.getElementById("confirmationMessage");
+  const toast = document.getElementById("toast");
+
+  const recipientAddress = "dev67zAteMQYnU5bDAPgtnt2TBf8W82YB768HQ4xtJd";
+
+  function showToast(message, isError = false, playSound = false) {
+    toast.textContent = message;
+    toast.style.background = isError ? "#b00020" : "#222";
+    toast.classList.add("show");
+
+    if (playSound) {
+      const sound = document.getElementById("toast-sound");
+      if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(err => {
+          console.warn("Autoplay failed:", err.message);
+        });
+      }
+    }
+
+    setTimeout(() => toast.classList.remove("show"), 7000);
+  }
+
+  buyButton.addEventListener("click", async () => {
+    if (!window.solana?.isPhantom) {
+      showToast("Phantom wallet not detected", true);
+      return;
+    }
+
+    const amount = parseFloat(solInput.value);
+    if (isNaN(amount) || amount < 0.1) {
+      showToast("Enter at least 0.1 SOL", true);
+      return;
+    }
+
+    try {
+      buyButton.disabled = true;
+      buyButton.textContent = "⏳ Processing...";
+      confirmMsg.textContent = "";
+
+      const provider = window.solana;
+      await provider.connect();
+
+      const connection = new Connection(clusterApiUrl("devnet"), "confirmed");
+      const fromPubkey = provider.publicKey;
+      const toPubkey = new PublicKey(recipientAddress);
+
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey,
+          toPubkey,
+          lamports: amount * 1e9,
+        })
+      );
+
+      const { blockhash } = await connection.getLatestBlockhash();
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = fromPubkey;
+
+      const signed = await provider.signTransaction(transaction);
+      const signature = await connection.sendRawTransaction(signed.serialize());
+      await connection.confirmTransaction(signature);
+
+      showToast("✅ Transaction successful!! Your $FMEX will be sent in 24 hrs after verification", false, true);
+      confirmMsg.textContent = `❤️ Congrats, ${amount} SOL bought! Your ex still sucks, but now you have $FMEX — Txn: ${signature}`;
+      confirmMsg.style.color = "green";
+
+    } catch (err) {
+      console.error(err);
+      showToast("❌ " + err.message, true);
+      confirmMsg.textContent = `❌ Transaction failed: ${err.message}`;
+      confirmMsg.style.color = "red";
+    } finally {
+      buyButton.disabled = false;
+      buyButton.textContent = "Buy with SOL";
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -29,11 +29,13 @@
 
 <div id="toast" class="toast"></div>
 <audio id="toast-sound" src="assets/beep1.mp3" preload="auto"></audio>
+<audio id="bg-music" src="assets/song.mp3" preload="auto" loop></audio>
 
     <header class="header">
     <div class="logo">💔</div>
     <div class="header-controls">
       <button id="theme-toggle">🌙</button>
+      <button id="music-toggle" title="Toggle Music">🎵</button>
       <button id="wallet-button">Connect Wallet</button>
     </div>
   </header>
@@ -67,10 +69,10 @@
 
     <section class="buy-form">
       <h2 class="Join-text"> Join $FMEX Presale Now!!</h2>
-      <p>You gave you ex years, give us 1 SOL</p>
+      <p>You gave your ex years, give us 1 SOL</p>
       <p>Price: <strong>1 SOL = 800,000 FMEX | Listing Price: $0.0025</strong></p>
       <p id="countdown" style="font-size: 0.7rem;"></p>
-      <input type="number" id="solAmount" placeholder="Enter SOL amount (min 1)" min="0.1" step="0.1" />
+      <input type="number" id="solAmount" placeholder="Enter SOL amount (min 0.1)" min="0.1" step="0.1" />
       <button class="buy-button" id="buyButton"> <strong>Buy with SOL</strong></button>
       <p id="confirmationMessage" style="margin-top:1rem; color:green;"></p>
       <p class="status" id="status">💡 Connect Phantom wallet to continue.</p>
@@ -262,5 +264,23 @@
   });
 </script>
 
+<script>
+  const musicBtn = document.getElementById("music-toggle");
+  const bgMusic = document.getElementById("bg-music");
+  let isPlaying = false;
+
+  musicBtn.addEventListener("click", () => {
+    if (isPlaying) {
+      bgMusic.pause();
+      musicBtn.textContent = "🎵";
+    } else {
+      bgMusic.volume = 0.4;
+      bgMusic.play().catch(err => console.warn("Playback failed:", err));
+      musicBtn.textContent = "🔇";
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
+    
 </body>
 </html>

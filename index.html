@@ -31,16 +31,16 @@
 <audio id="toast-sound" src="assets/beep1.mp3" preload="auto"></audio>
 
     <header class="header">
-    <div class="logo">💔 FMEX</div>
+    <div class="logo">💔</div>
     <div class="header-controls">
-      <button id="theme-toggle">❤️</button>
+      <button id="theme-toggle">🌙</button>
       <button id="wallet-button">Connect Wallet</button>
     </div>
   </header>
 
   <div class="container">
     <header>
-      <h1>💔 Fuck My Ex Coin ($FMEX)</h1>
+      <h1>Fuck My Ex Coin ($FMEX)</h1>
       <p>The only coin born from heartbreak, caffeine, and dangerously poor decisions.</p>
     </header>
 
@@ -61,14 +61,15 @@
       <div class="card">
         <div class="icon">🔥</div>
         <h2>Roadmap</h2>
-        <p>Q1: Got dumped. Q2: Launched. Q3: Emotional rugs. Q4: Moon or meltdown. Probably both.</p>
+        <p>Q1: Got dumped. Q2: Launched FMEX. Q3: Emotional rugs. Q4: Moon.</p>
       </div>
     </section>
 
     <section class="buy-form">
       <h2 class="Join-text"> Join $FMEX Presale Now!!</h2>
-      <p>Price: <strong>1 SOL = 1,000,000 FMEX | Listing Price: $0.0017</strong></p>
-      <p id="countdown" style="font-weight: bold; font-size: 1.2rem;"></p>
+      <p>You gave you ex years, give us 1 SOL</p>
+      <p>Price: <strong>1 SOL = 800,000 FMEX | Listing Price: $0.0025</strong></p>
+      <p id="countdown" style="font-size: 0.7rem;"></p>
       <input type="number" id="solAmount" placeholder="Enter SOL amount (min 1)" min="0.1" step="0.1" />
       <button class="buy-button" id="buyButton">Buy with SOL</button>
       <p id="confirmationMessage" style="margin-top:1rem; color:green;"></p>
@@ -77,7 +78,7 @@
 
     <div id="phantom-mobile-hint" style="display:none; margin-top:1rem;">
   <p style="font-weight:bold; color:#b00020;">🚨 To connect your wallet on mobile, use the Phantom App:</p>
-  <a href="https://phantom.app/ul/browse/fuckmyex.xyz" target="_blank" style="color:white; font-weight:bold; background:#8e24aa; padding:10px 20px; border-radius:8px; display:inline-block; text-decoration:none;">
+  <a href="https://phantom.app/ul/browse/https://devchi101.github.io/fmex-staging/" target="_blank" style="color:white; font-weight:bold; background:#8e24aa; padding:10px 20px; border-radius:8px; display:inline-block; text-decoration:none;">
     Open in Phantom App
   </a>
 </div>
@@ -172,9 +173,9 @@
 
   buyButton.addEventListener("click", async () => {
     if (!window.solana?.isPhantom) {
-      showToast("Phantom wallet not detected", true);
-      return;
-    }
+  window.location.href = "https://phantom.app/ul/browse/" + encodeURIComponent(window.location.href);
+  return;
+}
 
     const amount = parseFloat(solInput.value);
     if (isNaN(amount) || amount < 0.1) {
@@ -260,6 +261,28 @@
     }
   });
 </script>
+
+<style>
+  #wallet-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 0.5rem 1rem;
+    background: #411276;
+    border: 2px solid #000;
+    font-weight: bold;
+    color: #ffffff;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 1000;
+  }
+  @media (min-width: 768px) {
+    #wallet-button {
+      position: static;
+      box-shadow: none;
+    }
+  }
+</style>
 
 </body>
 </html>

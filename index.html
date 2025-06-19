@@ -75,6 +75,13 @@
       <p class="status" id="status">💡 Connect Phantom wallet to continue.</p>
     </section>
 
+    <div id="phantom-mobile-hint" style="display:none; margin-top:1rem;">
+  <p style="font-weight:bold; color:#b00020;">🚨 To connect your wallet on mobile, use the Phantom App:</p>
+  <a href="https://phantom.app/ul/browse/fuckmyex.xyz" target="_blank" style="color:white; font-weight:bold; background:#8e24aa; padding:10px 20px; border-radius:8px; display:inline-block; text-decoration:none;">
+    Open in Phantom App
+  </a>
+</div>
+
     <div class="progress-wrapper">
   <div class="progress-bar">
     <div class="progress-fill" id="progress-fill"></div>
@@ -98,28 +105,6 @@
   </div>
 </footer>
 
-  <script src="script.js"></script>
-  <script>
-  const connectBtn = document.getElementById("connect-wallet");
-  const walletAddress = document.getElementById("wallet-address");
-
-  async function connectPhantom() {
-    if (window.solana && window.solana.isPhantom) {
-      try {
-        const resp = await window.solana.connect();
-        walletAddress.textContent = `Connected: ${resp.publicKey.toString()}`;
-      } catch (err) {
-        console.error("Connection failed", err);
-      }
-    } else {
-      alert("Phantom Wallet not found. Install it from https://phantom.app");
-    }
-  }
-
-  connectBtn.addEventListener("click", connectPhantom);
-</script>
-
-  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
 
   <script>
     // ⏳ Countdown Timer
@@ -237,6 +222,41 @@
     } finally {
       buyButton.disabled = false;
       buyButton.textContent = "Buy with SOL";
+    }
+  });
+</script>
+
+<script src="script.js"></script>
+  <script>
+  const connectBtn = document.getElementById("connect-wallet");
+  const walletAddress = document.getElementById("wallet-address");
+
+  async function connectPhantom() {
+    if (window.solana && window.solana.isPhantom) {
+      try {
+        const resp = await window.solana.connect();
+        walletAddress.textContent = `Connected: ${resp.publicKey.toString()}`;
+      } catch (err) {
+        console.error("Connection failed", err);
+      }
+    } else {
+      alert("Phantom Wallet not found. Install it from https://phantom.app");
+    }
+  }
+
+  connectBtn.addEventListener("click", connectPhantom);
+</script>
+
+<script>
+  function isMobile() {
+    return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const phantomHint = document.getElementById("phantom-mobile-hint");
+
+    if (isMobile() && (!window.solana || !window.solana.isPhantom)) {
+      phantomHint.style.display = "block";
     }
   });
 </script>

@@ -40,12 +40,12 @@ body {
   cursor: pointer;
 }
 
-.wallet-button {
-  background: #00ff99;
+#wallet-button {
+  background: #411276;
   border: 2px solid #000;
-  color: #000;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  color: #ffffff;
+  padding: 0.75rem 1rem;
+  border-radius: 50px;
   cursor: pointer;
   font-weight: bold;
 }

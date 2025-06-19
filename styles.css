@@ -271,10 +271,6 @@ footer {
   display: none;
 }
 
-input, button {
-  touch-action: manipulation;
-}
-
 .toast {
   width: calc(100% - 2rem);
   max-width: 300px;

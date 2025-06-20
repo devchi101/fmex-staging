@@ -244,6 +244,20 @@
 </script>
 
 <script>
+  function isMobile() {
+    return /Mobi|Android|iPhone/i.test(navigator.userAgent);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const phantomHint = document.getElementById("phantom-mobile-hint");
+
+    if (isMobile() && (!window.solana || !window.solana.isPhantom)) {
+      phantomHint.style.display = "block";
+    }
+  });
+</script>
+
+<script>
   const musicBtn = document.getElementById("music-toggle");
   const bgMusic = document.getElementById("bg-music");
   let isPlaying = false;
@@ -260,6 +274,8 @@
     isPlaying = !isPlaying;
   });
 </script>
+
+<script src="script.js"></script>
     
 </body>
 </html>

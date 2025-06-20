@@ -141,7 +141,6 @@
 <script type="module">
   import {
     Connection,
-    clusterApiUrl,
     PublicKey,
     Transaction,
     SystemProgram,
@@ -152,7 +151,7 @@
   const confirmMsg = document.getElementById("confirmationMessage");
   const toast = document.getElementById("toast");
 
-  const recipientAddress = "dev6vRg6EibnNDcrp6UGGgujvdnoVF6TexwruykPqo1";
+  const recipientAddress = "dev6vRg6EibnNDcrp6UGGgujvdnoVF6TexwruykPqo1"; // replace with final address if needed
 
   function showToast(message, isError = false, playSound = false) {
     toast.textContent = message;
@@ -174,9 +173,9 @@
 
   buyButton.addEventListener("click", async () => {
     if (!window.solana?.isPhantom) {
-  window.location.href = "https://phantom.app/ul/browse/" + encodeURIComponent(window.location.href);
-  return;
-}
+      window.location.href = "https://phantom.app/ul/browse/" + encodeURIComponent(window.location.href);
+      return;
+    }
 
     const amount = parseFloat(solInput.value);
     if (isNaN(amount) || amount < 0.1) {
@@ -192,9 +191,26 @@
       const provider = window.solana;
       await provider.connect();
 
-      const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
+      const connection = new Connection("https://api.mainnet-beta.solana.com", "confirmed");
       const fromPubkey = provider.publicKey;
       const toPubkey = new PublicKey(recipientAddress);
+
+      // Retry blockhash fetching up to 3 times
+      let latest;
+      for (let i = 0; i < 3; i++) {
+        try {
+          latest = await connection.getLatestBlockhash('finalized');
+          break;
+        } catch (err) {
+          console.warn(`Retrying blockhash fetch... (${i + 1})`, err);
+          await new Promise(res => setTimeout(res, 1000));
+        }
+      }
+
+      if (!latest) {
+        showToast("❌ Failed to get blockhash. Try clearing cache and refreshing.", true);
+        return;
+      }
 
       const transaction = new Transaction().add(
         SystemProgram.transfer({
@@ -204,13 +220,12 @@
         })
       );
 
-      const { blockhash } = await connection.getLatestBlockhash();
-      transaction.recentBlockhash = blockhash;
+      transaction.recentBlockhash = latest.blockhash;
       transaction.feePayer = fromPubkey;
 
       const signed = await provider.signTransaction(transaction);
       const signature = await connection.sendRawTransaction(signed.serialize());
-      await connection.confirmTransaction(signature);
+      await connection.confirmTransaction(signature, 'finalized');
 
       showToast("✅ Transaction successful!! Your $FMEX will be sent in 24 hrs after verification", false, true);
       confirmMsg.textContent = `❤️ Congrats, ${amount} SOL bought! Your ex still sucks, but now you have $FMEX — Txn: ${signature}`;
@@ -224,41 +239,6 @@
     } finally {
       buyButton.disabled = false;
       buyButton.textContent = "Buy with SOL";
-    }
-  });
-</script>
-
-<script src="script.js"></script>
-  <script>
-  const connectBtn = document.getElementById("connect-wallet");
-  const walletAddress = document.getElementById("wallet-address");
-
-  async function connectPhantom() {
-    if (window.solana && window.solana.isPhantom) {
-      try {
-        const resp = await window.solana.connect();
-        walletAddress.textContent = `Connected: ${resp.publicKey.toString()}`;
-      } catch (err) {
-        console.error("Connection failed", err);
-      }
-    } else {
-      alert("Phantom Wallet not found. Install it from https://phantom.app");
-    }
-  }
-
-  connectBtn.addEventListener("click", connectPhantom);
-</script>
-
-<script>
-  function isMobile() {
-    return /Mobi|Android|iPhone/i.test(navigator.userAgent);
-  }
-
-  window.addEventListener("DOMContentLoaded", () => {
-    const phantomHint = document.getElementById("phantom-mobile-hint");
-
-    if (isMobile() && (!window.solana || !window.solana.isPhantom)) {
-      phantomHint.style.display = "block";
     }
   });
 </script>

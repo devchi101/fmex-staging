@@ -1,5 +1,3 @@
-const { Connection, PublicKey, Transaction, SystemProgram } = window.SolanaWeb3;
-
 const toggle = document.getElementById('theme-toggle');
 toggle.addEventListener('click', () => {
   document.body.classList.toggle('light');
@@ -84,6 +82,8 @@ if (solInput && estimateEl) {
   solInput.addEventListener("input", updateEstimate);
 }
 
+const { Connection, PublicKey, Transaction, SystemProgram } = window.SolanaWeb3;
+
 // DOM Elements
 const buyButton = document.getElementById("buyButton");
 const solInput = document.getElementById("solAmount");
@@ -130,7 +130,7 @@ buyButton.addEventListener("click", async () => {
     const provider = window.solana;
     await provider.connect();
 
-    const connection = new Connection("https://api.mainnet-beta.solana.com", "confirmed");
+    const connection = new Connection("https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY", "confirmed");
     const fromPubkey = provider.publicKey;
     const toPubkey = new PublicKey(recipientAddress);
 

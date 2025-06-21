@@ -1,3 +1,5 @@
+const { Connection, PublicKey, Transaction, SystemProgram } = window.SolanaWeb3;
+
 const toggle = document.getElementById('theme-toggle');
 toggle.addEventListener('click', () => {
   document.body.classList.toggle('light');
@@ -81,13 +83,6 @@ function updateEstimate() {
 if (solInput && estimateEl) {
   solInput.addEventListener("input", updateEstimate);
 }
-
-import {
-  Connection,
-  PublicKey,
-  Transaction,
-  SystemProgram,
-} from "https://esm.sh/@solana/web3.js";
 
 // DOM Elements
 const buyButton = document.getElementById("buyButton");

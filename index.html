@@ -191,7 +191,7 @@
       const provider = window.solana;
       await provider.connect();
 
-      const connection = new Connection("https://mainnet.helius-rpc.com/?api-key=YOUR_API_KEY", "confirmed");
+      const connection = new Connection("https://api.mainnet-beta.solana.com", "confirmed");
       const fromPubkey = provider.publicKey;
       const toPubkey = new PublicKey(recipientAddress);
 

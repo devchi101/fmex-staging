@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script type="module">
+  import {
+    Connection,
+    PublicKey,
+    Transaction,
+    SystemProgram,
+  } from "https://esm.sh/@solana/web3.js";
+
+  window.SolanaWeb3 = {
+    Connection,
+    PublicKey,
+    Transaction,
+    SystemProgram,
+  };
+</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fuck My Ex Coin ($FMEX)</title>
@@ -108,9 +123,6 @@
     </a>
   </div>
 </footer>
-
-<!-- Load as a module -->
-<script type="module" src="script.js"></script>
 
 <script src="script.js"></script>
     

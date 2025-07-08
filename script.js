@@ -81,3 +81,46 @@ function updateEstimate() {
 if (solInput && estimateEl) {
   solInput.addEventListener("input", updateEstimate);
 }
+
+const phrases = [
+  "We're not just memeing for fun — this is a lifestyle.",
+  "Stake. Meme. Earn. Repeat.",
+  "Join the heartbreak-fueled meme empire 💔"
+];
+
+const typingText = document.getElementById("typingText");
+
+let phraseIndex = 0;
+let charIndex = 0;
+let isDeleting = false;
+let speed = 80;
+
+function type() {
+  const currentPhrase = phrases[phraseIndex];
+  const currentText = currentPhrase.substring(0, charIndex);
+
+  typingText.textContent = currentText;
+
+  if (!isDeleting && charIndex < currentPhrase.length) {
+    charIndex++;
+    speed = 80;
+  } else if (isDeleting && charIndex > 0) {
+    charIndex--;
+    speed = 40;
+  } else {
+    if (!isDeleting) {
+      isDeleting = true;
+      speed = 1000; // pause before deleting
+    } else {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      speed = 500;
+    }
+  }
+
+  setTimeout(type, speed);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  type();
+});

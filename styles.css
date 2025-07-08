@@ -276,3 +276,27 @@ footer {
   max-width: 300px;
   font-size: 0.9rem;
 }
+
+.typing-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 1rem;
+  margin-top: 2rem;
+}
+
+.typing-text {
+  font-size: 6vw; /* scales for mobile */
+  max-width: 100%;
+  font-weight: bold;
+  color: #ffd700;
+  border-right: 2px solid #ffd700;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .typing-text {
+    font-size: 2rem; /* normal font size on desktop */
+  }
+}
